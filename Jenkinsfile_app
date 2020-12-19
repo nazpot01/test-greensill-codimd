@@ -1,0 +1,33 @@
+pipeline {
+    agent {
+        kubernetes {
+          label 'agent-node'
+        }
+    }
+    
+    environment {
+        CI = 'true'
+    }
+    stages {
+        stage('Build') {
+            steps {
+                container('jnlp-nodejs') {
+                    sh 'npm install'
+                }
+            }    
+        }
+        stage('Test') {
+            steps {
+                sh './jenkins/scripts/test.sh'
+            }
+        }
+        stage ('Docker push'){
+            docker.withRegistry("https://${cuenta}.dkr.ecr.us-east-1.amazonaws.com", "ecr:${region}:${perfilAWS}") {
+                docker.image("${prefijo_ecr}-${nemonico}-${project.standardName}").push('latest')
+            }
+        }
+        stage ('Update Kubernetes'){
+            sh "kubectl set image deployment/codimd codimd=URL_img:1.9.1"
+        }
+    }
+}

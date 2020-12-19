@@ -1,0 +1,90 @@
+# create ingress by jenkins tls access
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: codimd
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/affinity: "cookie"
+    nginx.ingress.kubernetes.io/session-cookie-name: "route"
+    nginx.ingress.kubernetes.io/session-cookie-expires: "172800"
+    nginx.ingress.kubernetes.io/session-cookie-max-age: "172800"
+    nginx.ingress.kubernetes.io/rewrite-target: /(.*) 
+spec:
+  rules:
+  - host: codimd.ejemplo.com
+    http:
+      paths:
+      - backend:
+          serviceName: codimd
+          servicePort: 3000
+        path: /(.*)
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: codimd 
+spec:
+  type: NodePort 
+  ports:
+    - port: 3000
+      targetPort: 3000
+  selector:
+    app: codimd
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: codimd
+spec:
+  replicas: 1 
+  strategy:
+   type: RollingUpdate
+   rollingUpdate:
+      maxUnavailable: 2
+      maxSurge: 2
+  selector:
+    matchLabels:
+      app: codimd
+  template:
+    metadata:
+      labels:
+        app: codimd
+        #        run: webserver
+    spec:
+      containers:
+        - name: codimd
+          image: cambiar_ecr_version:latest
+          imagePullPolicy: Always
+          env:
+            - name: username
+              value: $$(cat /tmp/secret | jqn 'property("username"')')                 
+        #  command: ["/bin/sh", "-c"]
+        # Run your application command after sourcing env file or use the env file to your convenience
+        #args:
+        # - export username1=$(cat /tmp/secret | jqn 'property("username")'); 
+        #    export password2=$(cat /tmp/secret | jqn 'property("username")');
+          resources:
+            limits:
+              cpu: 300m
+              memory: 256Mi
+            requests:
+              cpu: 100m
+              memory: 100Mi
+          ports:
+            - containerPort: 3000
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: codimd
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: codimd
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 50
