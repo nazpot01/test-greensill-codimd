@@ -46,7 +46,7 @@ _What you should do .._
 
 Only if the role was created with another name make this change. In the **provider.tf** files of each module and the main one, the role must be added in the variable:
 
-	role_arn = arn:aws:iam::%s:role/role_name
+    role_arn = arn:aws:iam::%s:role/role_name
 
 
 ### Image preparation
@@ -57,11 +57,11 @@ Only if the role was created with another name make this change. In the **provid
 
 3. Go to the root of the project and execute the following commands:
 
-docker build -t "codimd".
+    docker build -t "codimd" .
 
 4. Create a project tag:
 
-docker tag codimd: latest
+    docker tag codimd: latest
 
 5. Check connection with **AWS** locally for image upload to ECR.
 
