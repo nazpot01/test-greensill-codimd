@@ -1,6 +1,6 @@
 # Introduction
 
-This project allows an automated deployment of terraform from modules, ECR, EKS, KMS, SUBNET, VPC, among others. The project must be executed from a machine that is within the same network that will apply the changes, otherwise it may be necessary to modify the ** provider.tf ** file of each module and the main module, since file ** provider. tf ** is configured for a role with permissions to the modules to be created.
+This project allows an automated deployment of terraform from modules, ECR, EKS, KMS, SUBNET, VPC, among others. The project must be executed from a machine that is within the same network that will apply the changes, otherwise it may be necessary to modify the **provider.tf** file of each module and the main module, since file **provider.tf** is configured for a role with permissions to the modules to be created.
 
 ### Prerequisites 📋
 
@@ -25,9 +25,9 @@ _ What things do you need? _
 
 _What you should do .._
 
-1. Make a copy of the repository ** (https://github.com/nazpot01/test-greensill-codimd.git) ** in your local repository
+1. Make a copy of the repository **(https://github.com/nazpot01/test-greensill-codimd.git)** in your local repository
 
-2. Execute command ** "terraform init" ** in the folder where the downloaded repository is located, in order to initialize terraform.
+2. Execute command **"terraform init"** in the folder where the downloaded repository is located, in order to initialize terraform.
 
 3. Make the modification of the variables you consider in the file **variablesqa.tfvars**. This file contains the transversal variables for the display of all the modules. (There are already some example values)
 
@@ -36,7 +36,7 @@ _What you should do .._
 		aws_account_id_project = "indicate_the_number_of_aws_account"
 		aws_account_id_glyc = "indicate_the_number_of_aws_account"
 
-5. Perform the deployment from the machine that is on the network with the following command: ** terraform plan -var-file = variablesqa.tfvars -out = newscore.plan ** and **terraform apply "newscore.plan"**
+5. Perform the deployment from the machine that is on the network with the following command: **terraform plan -var-file = variablesqa.tfvars -out = newscore.plan** and **terraform apply "newscore.plan"**
 
 6. Once the infrastructure is implemented, modify the **pipelines-node.yml** file with the information that requires parameterization, it is important that you verify the template well since the mapping to the **ECR** image is performed here . To initialize the Kubernetes Ingress controller you must run the following command:
 
