@@ -16,7 +16,7 @@ It contains the creation of the cluster, role and policy.
 
 
 
-## Outputs.tf
+## outputs.tf
 
 Stores the outgoing registers of the display, to be able to be used in other variables.
 
