@@ -6,9 +6,9 @@ variables.tf: Este archivo permite almacenar y parametrizar las variables que se
 version.tf: Este archivo guarda la configuracion de las versiones que son usadas en las aplicaciones de los modulos. 
 
 
-# Título del Proyecto
+# Deployment Terraform modules
 
-_Acá va un párrafo que describa lo que es el proyecto_
+Este proyecto permite un despliegue automatizado de terraform a partir de modulos, ECR, EKS, KMS, SUBNET, VPC. Un Jenkinsfile principal que se encarga de realizar este de forma automatica.
 
 ## Comenzando 🚀
 

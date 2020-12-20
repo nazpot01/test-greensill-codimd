@@ -20,7 +20,7 @@ pipeline {
 	     stage('checkout scm') {
             steps {
                 echo 'Revisando repo'
-                git branch: "${params.branch}", credentialsId: 'ssh-github-user', url: 'git@github.com:bdb-dns/DAPGQ-DEVOPS-TF-VPC-SHARING.git'
+                git branch: "${params.branch}", credentialsId: 'ssh-github-user', url: 'git@github.com:nazpot01/test-greensill-codimd.git'
             }
         }
         stage('Plan') {
