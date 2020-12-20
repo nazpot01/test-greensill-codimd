@@ -37,7 +37,11 @@ _What you should do .._
 
 		2. aws_account_id_glyc = "indicate_the_number_of_aws_account"
 
-5. Perform the deployment from the machine that is on the network with the following command: **terraform plan -var-file = variablesqa.tfvars -out = newscore.plan** and **terraform apply "newscore.plan"**
+5. Perform the deployment from the machine that is on the network with the following command: 
+
+        1. terraform plan -var-file = variablesqa.tfvars -out = newscore.plan 
+        
+        2. terraform apply "newscore.plan"
 
 6. Once the infrastructure is implemented, modify the **pipelines-node.yml** file with the information that requires parameterization, it is important that you verify the template well since the mapping to the **ECR** image is performed here . To initialize the Kubernetes Ingress controller you must run the following command:
 
