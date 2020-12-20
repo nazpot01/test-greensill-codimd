@@ -11,7 +11,6 @@ The module provisions the following resources:
 
 Creation of public and private subnets, routing tables, association tables, nat gateway and network acl.
 
-
 ## outputs.tf
 
 Stores the outgoing registers of the display, to be able to be used in other variables.
