@@ -46,7 +46,7 @@ _What you should do .._
 
 Only if the role was created with another name make this change. In the **provider.tf** files of each module and the main one, the role must be added in the variable:
 
-		role_arn = arn:aws:iam::%s:role/role_name
+	role_arn = arn:aws:iam::%s:role/role_name
 
 
 ### Image preparation
