@@ -1,4 +1,4 @@
-#Introduction
+# Introduction
 
 This project allows an automated deployment of terraform from modules, ECR, EKS, KMS, SUBNET, VPC, among others. The project must be executed from a machine that is within the same network that will apply the changes, otherwise it may be necessary to modify the ** provider.tf ** file of each module and the main module, since file ** provider. tf ** is configured for a role with permissions to the modules to be created.
 
@@ -42,7 +42,7 @@ _What you should do .._
 
 		kubectl apply -f pipelines-node.yml
 
-#####NOTE
+##### NOTE
 
 Only if the role was created with another name make this change. In the ** provider.tf ** files of each module and the main one, the role must be added in the variable:
 
