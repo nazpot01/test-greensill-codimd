@@ -1,31 +1,6 @@
 # The EKS service does not provide a cluster-level API parameter or resource to automatically configure the underlying Kubernetes cluster
 # to allow worker nodes to join the cluster via AWS IAM role authentication.
 
-# NOTE: To automatically apply the Kubernetes configuration to the cluster (which allows the worker nodes to join the cluster),
-# the requirements outlined here must be met:
-# https://learn.hashicorp.com/terraform/aws/eks-intro#preparation
-# https://learn.hashicorp.com/terraform/aws/eks-intro#configuring-kubectl-for-eks
-# https://learn.hashicorp.com/terraform/aws/eks-intro#required-kubernetes-configuration-to-join-worker-nodes
-
-# Additional links
-# https://learn.hashicorp.com/terraform/aws/eks-intro
-# https://itnext.io/how-does-client-authentication-work-on-amazon-eks-c4f2b90d943b
-# https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html
-# https://docs.aws.amazon.com/eks/latest/userguide/add-user-role.html
-# https://docs.aws.amazon.com/cli/latest/reference/eks/update-kubeconfig.html
-# https://docs.aws.amazon.com/en_pv/eks/latest/userguide/create-kubeconfig.html
-# https://itnext.io/kubernetes-authorization-via-open-policy-agent-a9455d9d5ceb
-# http://marcinkaszynski.com/2018/07/12/eks-auth.html
-# https://cloud.google.com/kubernetes-engine/docs/concepts/configmap
-# http://yaml-multiline.info
-# https://github.com/terraform-providers/terraform-provider-kubernetes/issues/216
-# https://www.terraform.io/docs/cloud/run/install-software.html
-# https://stackoverflow.com/questions/26123740/is-it-possible-to-install-aws-cli-package-without-root-permission
-# https://stackoverflow.com/questions/58232731/kubectl-missing-form-terraform-cloud
-# https://docs.aws.amazon.com/cli/latest/userguide/install-bundle.html
-# https://docs.aws.amazon.com/cli/latest/userguide/install-cliv1.html
-
-
 locals {
   certificate_authority_data_list          = coalescelist(aws_eks_cluster.default.*.certificate_authority, [[{ data : "" }]])
   certificate_authority_data_list_internal = local.certificate_authority_data_list[0]
