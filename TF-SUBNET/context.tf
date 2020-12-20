@@ -1,26 +1,6 @@
-#
-# ONLY EDIT THIS FILE IN github.com/cloudposse/terraform-null-label
-# All other instances of this file should be a copy of that one
-#
-#
-# Copy this file from https://github.com/cloudposse/terraform-null-label/blob/master/exports/context.tf
-# and then place it in your Terraform module to automatically get
-# Cloud Posse's standard configuration inputs suitable for passing
-# to Cloud Posse modules.
-#
-# Modules should access the whole context as `module.this.context`
-# to get the input variables with nulls for defaults,
-# for example `context = module.this.context`,
-# and access individual variables as `module.this.<var>`,
-# with final values filled in.
-#
-# For example, when using defaults, `module.this.context.delimiter`
-# will be null, and `module.this.delimiter` will be `-` (hyphen).
-#
-
 
 module "this" {
-  source  = "cloudposse/label/null"
+  source  = "test/label/null"
   version = "0.22.0" // requires Terraform >= 0.12.26
 
   enabled             = var.enabled
@@ -39,7 +19,6 @@ module "this" {
   context = var.context
 }
 
-# Copy contents of cloudposse/terraform-null-label/variables.tf here
 
 variable "context" {
   type = object({
