@@ -31,6 +31,6 @@ locals {
 }
 
 module "utils" {
-  source  = "test/utils/aws"
+  source  = "cloudposse/utils/aws"
   version = "0.2.0"
 }

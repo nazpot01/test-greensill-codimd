@@ -7,7 +7,7 @@ locals {
 }
 
 module "label" {
-  source  = "test/label/null"
+  source  = "cloudposse/label/null"
   version = "0.22.0"
 
   context = module.this.context

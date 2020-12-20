@@ -1,5 +1,5 @@
 module "nat_label" {
-  source  = "test/label/null"
+  source  = "cloudposse/label/null"
   version = "0.22.0"
 
   attributes = ["nat"]
