@@ -2,8 +2,8 @@
 
 The module provisions the following resources:
 
-- Creacion del repositorio ECR para almacenar la imagen del proyecto.
-- Configuracion y documentación de politicas iam de acceso al repositorio
+- Creation of the ECR repository to store the project image.
+- Configuration and documentation of iam policies for access to the repository
 
 ## main.tf
 

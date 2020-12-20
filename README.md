@@ -1,113 +1,75 @@
-Este es un modulo de terraform que permite realizar la creación de un repositorio ECR en AWS a traves de codigo, este modulo contiene los siguientes archivos:
-main.tf: Este archivo almacena la configuracion principal a desplegar, encuentra previamente configurado a traves de variables las cuales estan definidas en el archivo variables.
-provider.tf: Este archivo se encuentra configurado para que solo permita acceso a AWS a traves de un rol, ya que por politicas de seguridad no es una buena practica el almacenaje de secrets key en el codigo. 
-outputs.tf: Este archivo permite el almacenaje de los outpus generados en cada modulo, de forma que puedan ser almacenados para ser reutilizados en la creación de un nuevo modulo de ser necesario.
-variables.tf: Este archivo permite almacenar y parametrizar las variables que serán usadas en el modulo a desplegar.
-version.tf: Este archivo guarda la configuracion de las versiones que son usadas en las aplicaciones de los modulos. 
+#Introduction
 
+This project allows an automated deployment of terraform from modules, ECR, EKS, KMS, SUBNET, VPC, among others. The project must be executed from a machine that is within the same network that will apply the changes, otherwise it may be necessary to modify the ** provider.tf ** file of each module and the main module, since file ** provider. tf ** is configured for a role with permissions to the modules to be created.
 
-# Deployment Terraform modules
+### Prerequisites 📋
 
-Este proyecto permite un despliegue automatizado de terraform a partir de modulos, ECR, EKS, KMS, SUBNET, VPC. Un Jenkinsfile principal que se encarga de realizar este de forma automatica.
+_ What things do you need? _
 
-## Comenzando 🚀
+1. Have Docker 12.03.8 or higher installed
 
-_Estas instrucciones te permitirán obtener una copia del proyecto en funcionamiento en tu máquina local para propósitos de desarrollo y pruebas._
+2. Have ** terraform v0.12.28 ** installed to execute the commands on the machine that you are going to perform the deployment.
 
-Mira **Deployment** para conocer como desplegar el proyecto.
+3. Have ** kubectl ** installed and configured to run kubernetes commands.
 
+4. Have an ** AWS ** role (this must be called "terraform") with permissions to the services to be executed (ECR, EKS, etc).
 
-### Pre-requisitos 📋
-
-_Que cosas necesitas para instalar el software y como instalarlas_
-
-```
-Da un ejemplo
-```
-
-### Instalación 🔧
-
-_Una serie de ejemplos paso a paso que te dice lo que debes ejecutar para tener un entorno de desarrollo ejecutandose_
-
-_Dí cómo será ese paso_
-
-```
-Da un ejemplo
-```
-
-_Y repite_
-
-```
-hasta finalizar
-```
-
-_Finaliza con un ejemplo de cómo obtener datos del sistema o como usarlos para una pequeña demo_
-
-## Ejecutando las pruebas ⚙️
-
-_Explica como ejecutar las pruebas automatizadas para este sistema_
-
-### Analice las pruebas end-to-end 🔩
-
-_Explica que verifican estas pruebas y por qué_
-
-```
-Da un ejemplo
-```
-
-### Y las pruebas de estilo de codificación ⌨️
-
-_Explica que verifican estas pruebas y por qué_
-
-```
-Da un ejemplo
-```
-
-## Despliegue 📦
-
-_Agrega notas adicionales sobre como hacer deploy_
-
-## Construido con 🛠️
-
-_Menciona las herramientas que utilizaste para crear tu proyecto_
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - El framework web usado
-* [Maven](https://maven.apache.org/) - Manejador de dependencias
-* [ROME](https://rometools.github.io/rome/) - Usado para generar RSS
-
-## Contribuyendo 🖇️
-
-Por favor lee el [CONTRIBUTING.md](https://gist.github.com/villanuevand/xxxxxx) para detalles de nuestro código de conducta, y el proceso para enviarnos pull requests.
-
-## Wiki 📖
-
-Puedes encontrar mucho más de cómo utilizar este proyecto en nuestra [Wiki](https://github.com/tu/proyecto/wiki)
-
-## Versionado 📌
-
-Usamos [SemVer](http://semver.org/) para el versionado. Para todas las versiones disponibles, mira los [tags en este repositorio](https://github.com/tu/proyecto/tags).
-
-## Autores ✒️
-
-_Menciona a todos aquellos que ayudaron a levantar el proyecto desde sus inicios_
-
-* **Andrés Villanueva** - *Trabajo Inicial* - [villanuevand](https://github.com/villanuevand)
-* **Fulanito Detal** - *Documentación* - [fulanitodetal](#fulanito-de-tal)
-
-También puedes mirar la lista de todos los [contribuyentes](https://github.com/your/project/contributors) quíenes han participado en este proyecto. 
-
-## Licencia 📄
-
-Este proyecto está bajo la Licencia (Tu Licencia) - mira el archivo [LICENSE.md](LICENSE.md) para detalles
-
-## Expresiones de Gratitud 🎁
-
-* Comenta a otros sobre este proyecto 📢
-* Invita una cerveza 🍺 o un café ☕ a alguien del equipo. 
-* Da las gracias públicamente 🤓.
-* etc.
+5. Have a locally configured profile with connection credentials to ** AWS ** (Secret key and access key)
 
 
 
----
-⌨️ con ❤️ por [Villanuevand](https://github.com/Villanuevand) 😊
+## Starting 🔧
+
+
+### Deployment of infrastructure
+
+_What you should do .._
+
+1. Make a copy of the repository ** (https://github.com/nazpot01/test-greensill-codimd.git) ** in your local repository
+
+2. Execute command ** "terraform init" ** in the folder where the downloaded repository is located, in order to initialize terraform.
+
+3. Make the modification of the variables you consider in the file ** variablesqa.tfvars **. This file contains the transversal variables for the display of all the modules. (There are already some example values)
+
+4. In the file ** variablesqa.tfvars **, in the following variables, make the modification for your aws account number:
+
+		aws_account_id_project = "indicate_the_number_of_aws_account"
+		aws_account_id_glyc = "indicate_the_number_of_aws_account"
+
+5. Perform the deployment from the machine that is on the network with the following command: ** terraform plan -var-file = variablesqa.tfvars -out = newscore.plan ** and **terraform apply "newscore.plan"**
+
+6. Once the infrastructure is implemented, modify the ** pipelines-node.yml ** file with the information that requires parameterization, it is important that you verify the template well since the mapping to the **ECR** image is performed here . To initialize the Kubernetes Ingress controller you must run the following command:
+
+		kubectl apply -f pipelines-node.yml
+
+#####NOTE
+
+Only if the role was created with another name make this change. In the ** provider.tf ** files of each module and the main one, the role must be added in the variable:
+
+		role_arn: ** arn: aws: iam ::% s: role / role_name **
+
+
+### Image preparation
+
+1. Make a copy of the repository ** (https://github.com/hackmdio/codimd** in your local repository
+
+2. Go to the folder ** deployments ** and locate the file ** dockerfile **, move it to the root of the project
+
+3. Go to the root of the project and execute the following commands:
+
+docker build -t "codimd".
+
+4. Create a project tag:
+
+docker tag codimd: latest
+
+5. Check connection with ** AWS ** locally for image upload to ECR.
+
+6. Upload the image to the ECR repository replacing the account details:
+
+docker push aws_account_id.dkr.ecr.region.amazonaws.com/codimd:latest
+
+
+## Contributing 🖇️
+
+Holman Hernandez
