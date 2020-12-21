@@ -84,4 +84,9 @@ Only if the role was created with another name make this change. In the **provid
     
      #Configuration type Deployment
         
-         image: full_uri_of_the_image
+         image: full_url_of_the_image
+
+3. Cuando las imagenes son actualizadas en ECR, ejecutar el siguiente comando:
+
+        kubectl set image deployment/codimd codimd=URL_img:1.9.1"
+

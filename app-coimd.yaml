@@ -52,11 +52,10 @@ spec:
     metadata:
       labels:
         app: codimd
-        #        run: webserver
     spec:
       containers:
         - name: codimd
-          image: cambiar_ecr_version:latest
+          image: full_url_of_the_image:version
           imagePullPolicy: Always             
           resources:
             limits:
