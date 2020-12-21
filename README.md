@@ -85,35 +85,3 @@ Only if the role was created with another name make this change. In the **provid
      #Configuration type Deployment
         
          image: full_uri_of_the_image
-
-        
-
-
-
-
-
-
-
-
-
-
-2. Go to the folder **deployments** and locate the file **dockerfile**, move it to the root of the project
-
-3. Go to the root of the project and execute the following commands:
-
-        docker build -t "codimd" .
-
-4. Create a project tag:
-
-        docker tag codimd:latest
-
-5. Check connection with **AWS** locally for image upload to ECR.
-
-6. Upload the image to the ECR repository replacing the account details:
-
-        docker push aws_account_id.dkr.ecr.region.amazonaws.com/codimd:latest
-
-
-## Contributing 🖇️
-
-Holman Hernandez
