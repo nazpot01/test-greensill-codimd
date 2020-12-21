@@ -1,6 +1,6 @@
 # Introduction
 
-This project allows an automated deployment of terraform from modules, ECR, EKS, KMS, SUBNET, VPC, among others. The project must be executed from a machine that is within the same network that will apply the changes, otherwise it may be necessary to modify the **provider.tf** file of each module and the main module, since file **provider.tf** is configured for a role with permissions to the modules to be created.
+This project performs an automated deployment of terraform from modules, ECR, EKS, KMS, SUBNET, VPC, among others. The project must be executed from a machine that is within amazon to be able to assume roles, otherwise it may be necessary to modify the **provider.tf** file of each module and the project module, since it is configured to assume a role and you must map the **secret key and access key** credentials.
 
 ### Prerequisites 📋
 
@@ -43,10 +43,6 @@ _What you should do .._
         
         2. terraform apply "newscore.plan"
 
-6. Once the infrastructure is implemented, modify the **pipelines-node.yml** file with the information that requires parameterization, it is important that you verify the template well since the mapping to the **ECR** image is performed here . To initialize the Kubernetes Ingress controller you must run the following command:
-
-		kubectl apply -f pipelines-node.yml
-
 ##### NOTE
 
 Only if the role was created with another name make this change. In the **provider.tf** files of each module and the main one, the role must be added in the variable:
@@ -66,7 +62,50 @@ Only if the role was created with another name make this change. In the **provid
 
 4. Create a project tag:
 
-        docker tag codimd: latest
+        docker tag codimd:latest
+
+5. Check connection with **AWS** locally for image upload to ECR.
+
+6. Upload the image to the ECR repository replacing the account details:
+
+        docker push aws_account_id.dkr.ecr.region.amazonaws.com/codimd:latest
+
+### Kubernets configuration
+
+1. Run the Ingress file **deploy.yaml** with the following command:
+
+        kubectl apply -f deploy.yaml
+
+2. Configure in the file **app-coimd.yaml** Ingress, service, and deployment of the codimd application, change the following variables:
+
+     #Ingress type configuration
+
+         Host: place_app_domain
+    
+     #Configuration type Deployment
+        
+         image: full_uri_of_the_image
+
+        
+
+
+
+
+
+
+
+
+
+
+2. Go to the folder **deployments** and locate the file **dockerfile**, move it to the root of the project
+
+3. Go to the root of the project and execute the following commands:
+
+        docker build -t "codimd" .
+
+4. Create a project tag:
+
+        docker tag codimd:latest
 
 5. Check connection with **AWS** locally for image upload to ECR.
 
