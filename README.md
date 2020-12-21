@@ -86,6 +86,6 @@ Only if the role was created with another name make this change. In the **provid
         
          image: full_url_of_the_image:version
 
-3. Cuando las imagenes son actualizadas en ECR, ejecutar el siguiente comando:
+3. When the images are updated in ECR, execute the following command:
 
-        kubectl set image deployment/codimd codimd=full_url_of_the_image:version
+         kubectl set image deployment / codimd codimd = full_url_of_the_image: version
