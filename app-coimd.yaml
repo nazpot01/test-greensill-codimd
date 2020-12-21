@@ -57,15 +57,7 @@ spec:
       containers:
         - name: codimd
           image: cambiar_ecr_version:latest
-          imagePullPolicy: Always
-          env:
-            - name: username
-              value: $$(cat /tmp/secret | jqn 'property("username"')')                 
-        #  command: ["/bin/sh", "-c"]
-        # Run your application command after sourcing env file or use the env file to your convenience
-        #args:
-        # - export username1=$(cat /tmp/secret | jqn 'property("username")'); 
-        #    export password2=$(cat /tmp/secret | jqn 'property("username")');
+          imagePullPolicy: Always             
           resources:
             limits:
               cpu: 300m

@@ -15,8 +15,8 @@ name = "subnets-vpc-test"
 
 #VARIABLES GENERALES
 
-aws_account_id_project = 
-aws_account_id_glyc = 
+aws_account_id_project = 123456789987
+aws_account_id_glyc = 123456789987
 subproject = "codimd"
 project = "codimd"
 image_names = ["node"]
